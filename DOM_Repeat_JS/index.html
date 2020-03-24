@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>УРОК 1</title>
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        div[name=block] {
+            border: 2px solid red;
+            width: 200px;
+            height: 300px;
+            vertical-align: top;
+            display: inline-block;
+        }
+
+        #out {
+            border: 2px solid green;
+            width: 200px;
+            height: 300px;
+            vertical-align: top;
+            display: inline-block;
+        }
+
+        /* .controls {
+            border: 2px solid blue;
+            width: 300px;
+            height: 500px;
+            vertical-align: top;
+            display: inline-block;
+        } */
+
+        input[value="Delete"] {
+            color: chocolate;
+            font-weight: 900;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>JS Lesson 1</h1>
+    <div name="block">
+        <P>Line 1 <br>
+            Line 2 <br>
+            <b>Line 3</b><br>
+            <u><i>Line 4</i></u>
+        </P>
+    </div>
+    <div id="out">
+
+    </div>
+    <p class="controls">
+        <input type="button" value="Read" onclick="readDOM()">
+        <input type="button" value="Create" onclick="createDOM()">
+        <input type="button" value="Delete">
+    </p>
+    <p id="out2">
+
+    </p>
+    <label for=""> <input type="checkbox" name="update">Update on click</label>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            let delBtn = document.querySelector('input[value="Delete"]');
+            if (delBtn == null) {
+                console.log("not found delBtn");
+                return;
+            } else {
+                delBtn.addEventListener('click', delDOM);
+            }
+            // удаление элемента
+            function delDOM() {
+                var block = document.querySelector("div[name=block]");
+                if (block == null) {
+                    alert("Block not found");
+                    return;
+                }
+                if (block.hasChildNodes())
+                    block.removeChild(block.firstChild);
+            }
+
+        })
+
+        document.addEventListener("mousedown", );
+
+
+
+        document.getElementById("f2").onclick = oClick;
+
+        function oClick(e) {
+            var element = this; //document.getElementById("f2");
+            if (element.style.backgroundColorOld) {
+                element.style.backgroundColor = element.style.backgroundColorOld;
+                delete element.style.backgroundColorOld;
+            } else {
+                element.style.backgroundColorOld = element.style.backgroundColor;
+                element.style.backgroundColor = "lightgreen";
+            }
+        }
+
+        document.onmousemove = function (event) {
+            let elem = document.elementFromPoint(event.pageX, event.pageY);
+            out2.innerText = elem.nodeName;
+
+
+        }
+
+        document.onclick = function (e) {
+            let elem = document.elementFromPoint(e.pageX, e.pageY);
+            if (elem != null && elem != document.documentElement && elem != document.body) {
+                elem.style.backgroundColor = "green";
+            }
+
+        }
+
+        function mDown(obj) {
+            obj.style.backgroundColor = "#1ec5e5";
+            obj.innerHTML = "Release Me";
+        }
+
+        function mUp(obj) {
+            obj.style.backgroundColor = "#D94A38";
+            obj.innerHTML = "Thank You";
+        }
+
+        function readDOM() {
+            var block = document.querySelector("div[name=block]");
+            if (block == null) {
+                alert("Block not found");
+                return;
+            }
+            var c = block.childNodes;
+
+            var str = "";
+
+            for (let ch of c) {
+                str += ch.nodeName + "<br/>";
+                if (ch.hasChildNodes()) {
+                    for (let ch2 of ch.childNodes) {
+                        str += ' - ' + ch2.nodeName + "<br/>";
+                    }
+                }
+            }
+
+            out.innerHTML = str;
+
+
+        }
+        // создать елемент
+        function createDOM() {
+            var block = document.querySelector("div[name=block]");
+            if (block == null) {
+                alert("Block not found");
+                return;
+            }
+            // add element
+            // create element 
+            var obj = document.createElement("B");
+            var elem = document.createElement("BR")
+            // заполняем 
+            obj.innerText = "New Element";
+            obj.style.fontSize = "18px";
+            obj.style["background-color"] = "yellow";
+            // добавляем елемент
+            block.appendChild(obj);
+            block.appendChild(elem);
+
+
+
+        }
+    </script>
+</body>
+
+</html>
