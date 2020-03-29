@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Курс валют</title>
+    <style>
+        #url {
+            display: block;
+            margin: auto;
+            text-align: center;
+            width: 90vw;
+        }
+    </style>
+</head>
+
+<body>
+    <textarea id="url">
+        https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json 
+    </textarea>
+    <input type="button" value="Get rates" onclick="loadRate()" />
+
+    <p id="out"></p>
+    <script>
+        function loadRate() {
+            // AJAX - Async JS and XML
+            // технология обмена данными
+            var ajax = new XMLHttpRequest();
+
+            // Async - new thread -> info about state change
+            ajax.onreadystatechange = function () {
+                // state : 1 - send started 
+                // 2 - send finished
+                // 3 - receive start
+                // 4 - receive finished
+                if (ajax.readyState === 4 && ajax.status == 200) {
+                    // парсим в объект
+                    var j = JSON.parse(ajax.responseText);
+                    for (let currency of j) {
+                        // rate  поле передает сам банк
+                        window.out.innerHTML += currency.txt + ' ' + currency.rate + ' ' + currency.cc + '<br/>';
+                    }
+                }
+                // открыли 
+                ajax.open('GET', window.url.value, true);
+                // отправили
+                ajax.send(null);
+            }
+
+
+            //     request.open('GET', 'current.json');
+            // // настройка запроса
+            // request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+            // // отправка запуск запроса
+            // request.send();
+
+        }
+    </script>
+</body>
+
+</html>

@@ -84,13 +84,23 @@
             }
 
         })
-        // let getBgCol = document.documentElement.
-        document.addEventListener("mousedown",  );
+
+        document.addEventListener("mousedown", );
 
 
 
-     
+        document.getElementById("f2").onclick = oClick;
 
+        function oClick(e) {
+            var element = this; //document.getElementById("f2");
+            if (element.style.backgroundColorOld) {
+                element.style.backgroundColor = element.style.backgroundColorOld;
+                delete element.style.backgroundColorOld;
+            } else {
+                element.style.backgroundColorOld = element.style.backgroundColor;
+                element.style.backgroundColor = "lightgreen";
+            }
+        }
 
         document.onmousemove = function (event) {
             let elem = document.elementFromPoint(event.pageX, event.pageY);
